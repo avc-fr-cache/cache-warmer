@@ -131,7 +131,6 @@
 //   console.log(`[CacheWarmer] Finished at ${new Date().toISOString()}`);
 // })();
 
-
 import axios from "axios";
 import { HttpsProxyAgent } from "https-proxy-agent";
 import { parseStringPromise } from "xml2js";
@@ -273,9 +272,8 @@ async function warmUrls(urls, country, batchSize = 3, delay = 7000) {
           console.log(`[${country}] ➤ Edge: ${res.headers["cf-ray"] || "unknown"}`);
 
           if (["REVALIDATED", "MISS", "PRERENDERED"].includes(vercelCache)) {
-  await purgeCloudflareCache(url);
-}
-
+            await purgeCloudflareCache(url);
+          }
         } catch (err) {
           console.warn(`[${country}] ❌ Failed to warm ${url}`);
         }
